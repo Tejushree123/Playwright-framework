@@ -18,3 +18,5 @@ async login(username:string,password:string){
 
 }
 
+// QA-101 Login automation updated
+
