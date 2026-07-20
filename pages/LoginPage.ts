@@ -13,7 +13,7 @@ async login(username:string,password:string){
     await this.page.fill(LoginLocators.userNameInput,username);
     // or await this.page.locator(LoginLocators.userNameInput).fill(username);
     await this.page.fill(LoginLocators.passwordInput,password);
-    await this.page.click(LoginLocators.loginButton)
+    await this.page.locator(LoginLocators.loginButton).click();
 }
 
 }
