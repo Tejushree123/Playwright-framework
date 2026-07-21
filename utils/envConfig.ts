@@ -15,5 +15,5 @@ const ENV = (process.env.ENV || "prod").trim();
 const url = ENV_URL[ENV as keyof typeof ENV_URL];
 
 export const BASE_URL =url
-export const USERNAME ="standard_user";
-export const PASSWORD="secret_sauce"
+export const USERNAME =process.env.USERNAME || "standard_user";
+export const PASSWORD=process.env.PASSWORD || "secret_sauce";
