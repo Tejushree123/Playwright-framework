@@ -6,7 +6,7 @@ import { LoginLocators } from "../locators/LoginLocators";
 import { CartPage } from "../pages/CartPage";
 import { checkoutData } from "../test-data/checkoutData";
 import { CheckoutPage } from "../pages/CheckoutPage";
-import { CheckoutOverviewPage } from "../pages/checkoutOverview";
+import { CheckoutOverviewPage } from "../pages/CheckoutOverview";
 import { productsToCart } from "../test-data/products";
 
 test.describe("CheckoutOverview Page Validation",()=>{              //test() = one test case //describe() = a folder/group of related test cases
