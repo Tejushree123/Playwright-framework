@@ -15,6 +15,10 @@ jobs:
   playwright-tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+
     env:
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
@@ -36,13 +40,13 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --project=${{ matrix.browser }}
 
       - name: Upload Playwright HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Playwright-HTML-Report
+          name: Playwright-HTML-Report-${{ matrix.browser }}
           path: playwright-report/
           retention-days: 30   
 
@@ -50,6 +54,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-results
+          name: test-results-${{ matrix.browser }}
           path: test-results/
           retention-days: 30
