@@ -26,7 +26,7 @@ cartPage = new CartPage(page)
 await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
 })
 
-test("Validate cart page URL and UI elements",async({page})=>{
+test("@sanity @regression Validate cart page URL and UI elements",async({page})=>{
 
     await productPage.addFirstProductToCart();
     await productPage.clickOnCartLink();
@@ -37,7 +37,7 @@ test("Validate cart page URL and UI elements",async({page})=>{
     expect ((ui).checkOut).toBeVisible();
 })
 
-test("Continue shopping functionality",async({page})=>{
+test("@regression Continue shopping functionality",async({page})=>{
     await productPage.addFirstProductToCart();
     await productPage.clickOnCartLink();
     await cartPage.clickOnContinueShopping();
@@ -45,7 +45,7 @@ test("Continue shopping functionality",async({page})=>{
 
 })
 
-test("validate first product added to the cart",async({page})=>{
+test("@smoke @regressionvalidate first product added to the cart",async({page})=>{
 
     const firstproduct= await productPage.getFirstProductDetails();
     await productPage.addFirstProductToCart();
@@ -55,7 +55,7 @@ test("validate first product added to the cart",async({page})=>{
 
 })
 
-test("validate all products added to the cart",async({page})=>{
+test("@regression validate all products added to the cart",async({page})=>{
 
     const allProductDetails = await productPage.getAllProductsDetails();
     await productPage.addAllProductsToCart();
@@ -66,7 +66,7 @@ test("validate all products added to the cart",async({page})=>{
     
 })
 
-test("validate specific products added to the cart",async({page})=>{
+test("@regression validate specific products added to the cart",async({page})=>{
 
     const specificproducts=await productPage.getSpecificProductDetails(productsToCart)
     await productPage.addSpecificProductsToCart(productsToCart);
@@ -77,7 +77,7 @@ test("validate specific products added to the cart",async({page})=>{
 
 })
 
-test("valiadte remove button functionality",async({page})=>{
+test("@regression valiadte remove button functionality",async({page})=>{
 await productPage.addAllProductsToCart();
 await productPage.clickOnCartLink();
 

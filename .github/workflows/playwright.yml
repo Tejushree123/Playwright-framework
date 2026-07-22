@@ -7,21 +7,33 @@ on:
     branches: [ main ]
 
   workflow_dispatch:
+    inputs:
+      suite:
+        description: 'Select test suite'
+        required: true
+        default: regression
+        type: choice
+        options:
+        - smoke
+        - sanity
+        - regression
   
   schedule:
     - cron: '0 9 * * 1'
 
 jobs:
   playwright-tests:
+    name: Playwright Tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
 
     env:
-      USERNAME: ${{ secrets.USERNAME }}
-      PASSWORD: ${{ secrets.PASSWORD }}
+      SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+      SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
 
 
     steps:
@@ -39,8 +51,27 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }}
+      # Run Smoke tests on every push and pull request
+      - name: Run Smoke Tests
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: npx playwright test --grep "@smoke" --project=${{ matrix.browser }}
+
+        # Run selected suite manually
+      - name: Run Selected Suite
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if [ "${{ github.event.inputs.suite }}" = "smoke" ]; then
+            npx playwright test --grep "@smoke" --project=${{ matrix.browser }}
+          elif [ "${{ github.event.inputs.suite }}" = "sanity" ]; then
+            npx playwright test --grep "@sanity" --project=${{ matrix.browser }}
+          else
+            npx playwright test --grep "@regression" --project=${{ matrix.browser }}
+          fi
+
+      # Run Regression on scheduled execution
+      - name: Run Scheduled Regression
+        if: github.event_name == 'schedule'
+        run: npx playwright test --grep "@regression" --project=${{ matrix.browser }}
 
       - name: Upload Playwright HTML Report
         if: always()

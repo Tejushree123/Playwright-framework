@@ -3,7 +3,7 @@ import { LoginLocators } from "../locators/LoginLocators";
 import { BASE_URL,USERNAME,PASSWORD } from "../utils/envConfig";
 import { LoginPage } from "../pages/LoginPage";
 
-test("login to sauceDemo application with valid credentials",async({page})=>{
+test("@smoke @regression login to sauceDemo application with valid credentials",async({page})=>{
 
 //create an object for loginpage
 const loginPage=new LoginPage(page);

@@ -31,7 +31,7 @@ await productPage.addFirstProductToCart();
 await productPage.clickOnCartLink();
 })
 
-test("validate checkoutPage UI elements and URL",async({page})=>{
+test("@sanity @regression validate checkoutPage UI elements and URL",async({page})=>{
 await cartPage.clickCheckoutButton();
 await expect(page).toHaveURL("https://www.saucedemo.com/checkout-step-one.html");
 const elements = await checkoutPage.getCheckoutElements();
@@ -42,20 +42,20 @@ expect(elements.continueButton).toBeVisible();
 
 })
 
-test("validate cancel button functionality",async({page})=>{
+test("@sanity @regression validate cancel button functionality",async({page})=>{
     await cartPage.clickCheckoutButton();
     await checkoutPage.clickCancel();
     expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
 
 })
- test("validate continue button",async({page})=>{
+ test("@sanity @regression validate continue button",async({page})=>{
 
     await cartPage.clickCheckoutButton();
     await checkoutPage.fillCheckoutDetails(checkoutData.firstName,checkoutData.lastName,checkoutData.postalCode);
     await checkoutPage.clickOnContinue();
  })
 
- test("Valiadet error message when continue without entering any data",async({page})=>{
+ test("@regression Valiadet error message when continue without entering any data",async({page})=>{
     await cartPage.clickCheckoutButton();
     await checkoutPage.clickOnContinue();
     const error= await checkoutPage.getErrorMessage();

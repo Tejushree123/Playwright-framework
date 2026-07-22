@@ -42,7 +42,7 @@ await checkoutPage.clickOnContinue();
 await checkoutOveriew.clickFinishlButton();
 })
 
-test("Valiadet final page UI and URL",async({page})=>{
+test("@sanity @regression Valiadet final page UI and URL",async({page})=>{
 
     await expect(page).toHaveURL("https://www.saucedemo.com/checkout-complete.html");
 
@@ -54,13 +54,13 @@ test("Valiadet final page UI and URL",async({page})=>{
 
 })
 
-test("Validate success message",async({page})=>{
+test("@smoke @regression Validate success message",async({page})=>{
 
     const message = await finalPage.getSuccessMessageText();
     expect(message).toBe("Thank you for your order!");
 })
 
-test("Validate back to home button functionality",async({page})=>{
+test("@regression Validate back to home button functionality",async({page})=>{
 await finalPage.clickOnBackToHomeButton();
 expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
 
