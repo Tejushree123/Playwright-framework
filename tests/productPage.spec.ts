@@ -23,14 +23,14 @@ productPage = new ProductPage(page)
 await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
 })
 
-test("verify logout functionality",async({page})=>{
+test("@smoke @regression verify logout functionality",async({page})=>{
     await productPage.logout();
     await expect(page.locator(LoginLocators.loginButton)).toBeVisible;
 
     
 })
 
-test("verify about page",async({page})=>{
+test("@regression verify about page",async({page})=>{
 await productPage.openAboutPage();
 await expect(page.locator(productPageLocators.bookDemoLink)).toBeVisible;
 await expect(page.locator(productPageLocators.tryItFreeButton)).toBeVisible;
@@ -39,19 +39,19 @@ await expect(page.locator(productPageLocators.settingIcon)).toBeVisible;
 
 })
 
-test("validate product page",async({page})=>{
+test("@smoke @regression validate product page",async({page})=>{
 
 await productPage.validateAllProductsDisplayed();
 await productPage.addFirstProductToCart();
 await productPage.addAllProductsToCart();
 })
 
-test("validate adding some or specific products to cart",async({page})=>{
+test("@regression validate adding some or specific products to cart",async({page})=>{
 
   await productPage.addSpecificProductsToCart(productsToCart);  
 })
 
-test("Filter By Name A to Z",async({page})=>{
+test("@regression Filter By Name A to Z",async({page})=>{
 
   await productPage.filterByNameAtoZ();
   const names = await productPage.getProductNames();
@@ -60,7 +60,7 @@ test("Filter By Name A to Z",async({page})=>{
 
 })
 
-test("Filter By Name Z to A",async({page})=>{
+test("@regression Filter By Name Z to A",async({page})=>{
 
   await productPage.filterByNameZtoA();
   const names = await productPage.getProductNames();
@@ -69,7 +69,7 @@ test("Filter By Name Z to A",async({page})=>{
   
 })
 
-test("Filter By Price Low to High",async({page})=>{
+test("@regression Filter By Price Low to High",async({page})=>{
 
   await productPage.filterByPriceLowtoHigh();
    const prices=await productPage.getProductPrices();
@@ -78,7 +78,7 @@ test("Filter By Price Low to High",async({page})=>{
 
 })
 
-test("Filter By Name High to Low",async({page})=>{
+test("@regression Filter By Name High to Low",async({page})=>{
 
   await productPage.filterByPriceHightoLow();
    const prices=await productPage.getProductPrices();

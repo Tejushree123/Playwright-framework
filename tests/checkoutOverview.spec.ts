@@ -38,7 +38,7 @@ await checkoutPage.fillCheckoutDetails(checkoutData.firstName,checkoutData.lastN
 await checkoutPage.clickOnContinue();
 })
 
-test("Validate checkout overview,UI and URL",async({page})=>{
+test("@sanity @regression Validate checkout overview,UI and URL",async({page})=>{
     await expect(page).toHaveURL("https://www.saucedemo.com/checkout-step-two.html")
     const elements = await checkoutOveriew.getCheckoutOverviewElements();
     await expect(elements.pageInfo).toBeVisible();
@@ -46,12 +46,12 @@ test("Validate checkout overview,UI and URL",async({page})=>{
     await expect(elements.finishButton).toBeVisible();
 })
 
-test("Validate cancel button functionality",async({page})=>{
+test("@regression Validate cancel button functionality",async({page})=>{
     await checkoutOveriew.clickCancelButton();
     expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
 })
 
-test("validate item total calculator",async({page})=>{
+test("@sanity @regressionvalidate item total calculator",async({page})=>{
     const overviewProducts = await checkoutOveriew.getOverviewProduct();
     //reduce() is an Array method that reduces all array elements into a single value.
     const calculatedTotal = overviewProducts.reduce((sum,{price})=>sum+parseFloat(price.replace("$","")),0);
@@ -60,7 +60,7 @@ test("validate item total calculator",async({page})=>{
 
 })
 
-test("Validate final total(item total+tax)",async({page})=>{
+test("@smoke @regression Validate final total(item total+tax)",async({page})=>{
 
     const itemTotal = await checkoutOveriew.getItemTotal();
     const tax = await checkoutOveriew.getTax();
